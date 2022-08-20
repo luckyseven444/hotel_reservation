@@ -9,5 +9,7 @@ interface RoomRepositoryInterface
     public function getRoomById($roomId);
     public function deleteRoom($roomId);
     public function storeRoom(Request $request);
-    public function updateRoom($roomId, array $newDetails);
+    public function editRoom($roomId);
+    public function updateRoom(Request $request, $roomId);
+    public function destroyRoom($roomId);
 }

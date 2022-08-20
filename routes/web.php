@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
+use App\Models\Room;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $rooms = Room::all();
+    return view('room.index', compact('rooms'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::resources(['rooms' => RoomController::class]);

@@ -23,6 +23,7 @@
             $('.js-example-basic-multiple').select2();
         });
          </script>
+         @stack('style')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -41,6 +42,5 @@
             </main>
         </div>
     </body>
-
-    @st
+    @stack('script')
 </html>

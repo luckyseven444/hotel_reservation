@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\RoomRepository;
 use App\Models\Amenity;
+use App\Models\Room;
+
 class RoomController extends Controller
 {
     private $roomRepository;
@@ -22,7 +24,7 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = $this->roomRepository->getAllRooms();
-        dd($rooms);
+        return view('room.index', compact('rooms'));
     }
 
     /**
@@ -44,8 +46,7 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {   
-        $this->roomRepository->storeRoom($request);
-        return view('dashboard');
+        return $this->roomRepository->storeRoom($request);
     }
 
     /**
@@ -67,7 +68,7 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $this->roomRepository->editRoom($id);
     }
 
     /**
@@ -78,8 +79,8 @@ class RoomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {  
+        return $this->roomRepository->updateRoom($request, $id);
     }
 
     /**
@@ -90,6 +91,6 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->roomRepository->destroyRoom($id);
     }
 }
