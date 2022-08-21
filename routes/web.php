@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ReservationController;
 use App\Models\Room;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -34,7 +35,7 @@ Route::get('/signin', function(){
 Route::post('signin', function(){
     if(auth()->guard('customer')->attempt(array('email' => request()->email, 'password' => request()->password)))
         {
-            return view('customer.index');   
+            return redirect()->route('customer.index');   
         }else{
             return redirect()->route('signin')->with('error','Email-Address And Password Are Wrong.');
         }
@@ -46,4 +47,7 @@ Route::post('signout', function(){
     return redirect()->route('signin');
 })->name('signout');
 
+Route::get('customer/index', [ReservationController::class, 'index'])->name('customer.index');
+Route::get('reservation/{room}', [ReservationController::class, 'getForm'])->name('reservation.form');
+Route::post('reservation/{room}', [ReservationController::class, 'reserve'])->name('reserve');
 require __DIR__.'/auth.php';
