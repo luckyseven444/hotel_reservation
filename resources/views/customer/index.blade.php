@@ -17,4 +17,24 @@
         @endforeach
     </tbody>
   </table>
+<hr>
+  <label for="">Customers Booking History</label>
+  <table>
+    <thead>
+        <tr>
+            <th>Room</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($reservations as $reservation)
+        <tr>
+            <td>{{$reservation->room->name}}</td>
+            <td>{{$reservation->check_in}}</td>
+            <td>{{$reservation->check_out}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+  </table>
 @endsection

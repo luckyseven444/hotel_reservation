@@ -13,7 +13,10 @@ class ReservationController extends Controller
         $rooms = Room::whereDoesntHave('reservation', function (Builder $query) {
             $query->where('approved', '=', 0);
         })->get();
-        return view('customer.index', compact('rooms'));
+
+        $customer_id = auth('customer')->user()->id;
+        $reservations = Reservation::where('customer_id', $customer_id)->with('room')->get();
+        return view('customer.index', compact('rooms', 'reservations'));
     }
 
     public function getForm($room){
