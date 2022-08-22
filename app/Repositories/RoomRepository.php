@@ -6,11 +6,14 @@ use App\Interfaces\RoomRepositoryInterface;
 use App\Models\Room;
 use App\Models\Amenity;
 use Illuminate\Http\Request;
+use App\Models\Reservation;
 class RoomRepository implements RoomRepositoryInterface 
 {
     public function getAllRooms() 
-    {
-        return Room::all();
+    {   
+        $reservations = Reservation::where('approved', 0)->with('room')->get();
+        $rooms = Room::all();
+        return view('room.index', compact('rooms', 'reservations'));
     }
 
     public function getRoomById($RoomId) 

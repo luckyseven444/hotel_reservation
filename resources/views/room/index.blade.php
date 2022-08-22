@@ -38,6 +38,23 @@
             </div>
         </div>
     </div>
+    <label for="">Pending Booking/Reservation List</label>
+    <table>
+        <thead>
+            <tr>
+                <th>Room</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($reservations as $reservation)
+            <tr>
+                <td>{{$reservation->room->name}}</td>
+                <td><a href="{{route('approve', $reservation->id)}}">Approve</a></td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </x-app-layout>
 
 

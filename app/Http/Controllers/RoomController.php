@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\RoomRepository;
 use App\Models\Amenity;
 use App\Models\Room;
+use App\Models\Reservation;
 
 class RoomController extends Controller
 {
@@ -23,8 +24,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = $this->roomRepository->getAllRooms();
-        return view('room.index', compact('rooms'));
+        return $this->roomRepository->getAllRooms();
+       
     }
 
     /**
@@ -92,5 +93,10 @@ class RoomController extends Controller
     public function destroy($id)
     {
         return $this->roomRepository->destroyRoom($id);
+    }
+
+    public function approve($reservation){
+        Reservation::find($reservation)->update(['approved'=>1]);
+        return redirect()->route('rooms.index');
     }
 }

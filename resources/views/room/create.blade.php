@@ -16,6 +16,7 @@
     </select>
     <button type='submit'>Submit</button>
 </form>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

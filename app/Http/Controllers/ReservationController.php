@@ -23,6 +23,10 @@ class ReservationController extends Controller
     }
 
     public function reserve($room, Request $request){
+        $request->validate([
+            'check_out' => 'required',
+            'check_in' => 'required',
+        ]);
         Reservation::create($request->all());
         return redirect()->route('customer.index');
     }

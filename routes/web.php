@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ReservationController;
-use App\Models\Room;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -21,12 +20,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $rooms = Room::all();
-    return view('room.index', compact('rooms'));
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [RoomController::class, 'index'])->middleware(['auth:web'])->name('dashboard');
 
 Route::resources(['rooms' => RoomController::class]);
+
+Route::get('rooms/approve/{reservation}', [RoomController::class, 'approve'])->name('approve');
 
 Route::get('/signin', function(){
     return view('auth.signin');
@@ -51,3 +49,7 @@ Route::get('customer/index', [ReservationController::class, 'index'])->name('cus
 Route::get('reservation/{room}', [ReservationController::class, 'getForm'])->name('reservation.form');
 Route::post('reservation/{room}', [ReservationController::class, 'reserve'])->name('reserve');
 require __DIR__.'/auth.php';
+
+
+Route::post('/save-token', [App\Http\Controllers\HomeController::class, 'saveToken'])->name('save-token');
+Route::post('/send-notification', [App\Http\Controllers\HomeController::class, 'sendNotification'])->name('send.notification');

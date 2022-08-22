@@ -16,8 +16,9 @@ class JWTController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    {  
+        auth()->setDefaultDriver('api');
+        //$this->middleware('auth:api', ['except' => ['', 'register']]);
     }
 
     /**
